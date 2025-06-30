@@ -5,7 +5,8 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@pokemon/*": ["./src/modules/pokemon/*"]
     },
     "lib": ["es2022", "dom"],
     "target": "es2023"
