@@ -18,7 +18,10 @@ import { GameStatus } from "../interfaces"
   <section>
     <img
       class="w-64 h-64 object-contain fade-in"
-      :class="props.showPokemon === GameStatus.Playing? 'brightness-0': '' "
+      :class="{
+        'brightness-0': props.showPokemon === GameStatus.Playing,
+        'grayscale': props.showPokemon === GameStatus.Lost
+      }"
       :src="pokemonImage"
       alt="Pokemon Picture"/>
   </section>
@@ -33,6 +36,9 @@ import { GameStatus } from "../interfaces"
     -webkit-user-drag: none;
     -webkit-user-select: none;
 
+  }
+  .grayscale {
+    filter: grayscale(1);
   }
 
 </style>

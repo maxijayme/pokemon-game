@@ -1,6 +1,8 @@
 import { computed, onMounted, ref } from "vue"
 import { GameStatus, type PokemonListResponse, type Pokemon } from "../interfaces"
 import { pokemonApi } from "@/api/pokemonApi"
+import confetti from 'canvas-confetti';
+
 
 export const usePokemonGame = () => {
 
@@ -32,10 +34,30 @@ export const usePokemonGame = () => {
     return suffledPokemonList
   }
 
-  const getNextOPtions = ( howMany: number = 4) => {
+  const getNextRound = ( howMany: number = 4) => {
     gameStatus.value = GameStatus.Playing
     pokemonOptions.value = pokemons.value.slice(0, howMany)
     pokemons.value = pokemons.value.slice(howMany)
+  }
+
+  const checkSelection = (id: number) => {
+    const hasWon = randomPokemon.value.id === id
+    if (hasWon) {
+      gameStatus.value = GameStatus.Won
+      confetti({
+        spread: 360,
+        ticks: 50,
+        gravity: 0,
+        decay: 0.94,
+        startVelocity: 30,
+        colors: ['FFE400', 'FFBD00', 'E89400', 'FFCA6C', 'FDFFB8'],
+        particleCount: 40,
+        scalar: 1.2,
+        shapes: ['star']
+      });
+      return
+    }
+    gameStatus.value = GameStatus.Lost
   }
 
 
@@ -43,7 +65,7 @@ export const usePokemonGame = () => {
     async () => {
       await new Promise( resolve => setTimeout(resolve, 1000) )
       pokemons.value = await getPokemons()
-      getNextOPtions()
+      getNextRound()
     }
   )
 
@@ -54,7 +76,8 @@ export const usePokemonGame = () => {
     randomPokemon,
 
     //Methods
-    getNextOPtions,
+    getNextRound,
     getPokemons,
+    checkSelection,
   }
 }
