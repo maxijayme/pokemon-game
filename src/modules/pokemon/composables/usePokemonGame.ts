@@ -1,6 +1,6 @@
 import { computed, onMounted, ref } from "vue"
 import { GameStatus, type PokemonListResponse, type Pokemon } from "../interfaces"
-import { pokemonApi } from "@/api/pokemonApi"
+import { pokemonApi } from "@/modules/pokemon/api/pokemonApi"
 import confetti from 'canvas-confetti';
 
 

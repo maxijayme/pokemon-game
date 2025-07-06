@@ -17,6 +17,7 @@ import { GameStatus } from "../interfaces"
 <template>
   <section>
     <img
+      data-vtest="pokemon-picture-image"
       class="w-64 h-64 object-contain fade-in"
       :class="{
         'brightness-0': props.showPokemon === GameStatus.Playing,
